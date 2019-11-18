@@ -3,14 +3,13 @@ language: generic
 services:
   - docker
 
-before_install:
-  - docker build -t radosnydzwon/react-test -f ./client/Dockerfile.dev ./client
-
 script:
-  - docker run radosnydzwon/react-test npm test -- --coverage
-
-after_success:
   - docker build -t radosnydzwon/multi-client ./client
   - docker build -t radosnydzwon/multi-nginx ./nginx
   - docker build -t radosnydzwon/multi-server ./server
   - docker build -t radosnydzwon/multi-worker ./worker
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push stephengrider/multi-client
+  - docker push stephengrider/multi-nginx
+  - docker push stephengrider/multi-server
+  - docker push stephengrider/multi-worker
