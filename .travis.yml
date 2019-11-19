@@ -8,7 +8,7 @@ script:
   - docker build -t radosnydzwon/multi-nginx ./nginx
   - docker build -t radosnydzwon/multi-server ./server
   - docker build -t radosnydzwon/multi-worker ./worker
-  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+  - docker login -u "$DOCKER_ID" --password="$DOCKER_PASSWORD"
   - docker push radosnydzwon/multi-client
   - docker push radosnydzwon/multi-nginx
   - docker push radosnydzwon/multi-server
